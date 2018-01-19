@@ -43,11 +43,12 @@ class CallbackModule(CallbackBase):
 
     def __del__(self):
 
-        for p,q in self.saved.items():
-            # p is hosts tuple 
-            if q[0] in C.MODULE_NO_JSON: 
-                # self._display.display(self._command_generic_msg(','.join(sorted(p)), q[2], q[1]), color=C.COLOR_OK)                                  
-                print(self._command_generic_msg(','.join(sorted(p)), q[2], q[1]))
+        if self.saved:
+            for p,q in self.saved.items():
+                # p is hosts tuple 
+                if not C.MODULE_NO_JSON or q[0] in C.MODULE_NO_JSON: 
+                    # self._display.display(self._command_generic_msg(','.join(sorted(p)), q[2], q[1]), color=C.COLOR_OK)                                  
+                    print(self._command_generic_msg(','.join(sorted(p)), q[2], q[1]))
         
     def _command_generic_msg(self, host, result, caption):
         ''' output the result of a command run '''
